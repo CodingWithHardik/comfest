@@ -398,18 +398,6 @@
         </div>
     </div>
 
-    <div id="apiConfigModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center;">
-        <div style="background: #1a1a2e; padding: 30px; border-radius: 15px; border: 1px solid #64ffda; max-width: 500px; width: 90%;">
-            <h3 style="color: #64ffda; margin-bottom: 20px;">API Configuration</h3>
-            <div class="form-group">
-                <label>API URL:</label>
-                <input type="text" id="apiUrlInput" value="http://localhost:3000" placeholder="http://localhost:3000">
-            </div>
-            <button class="btn btn-success" onclick="saveApiConfig()">Save & Connect</button>
-            <button class="btn" onclick="hideApiConfig()">Cancel</button>
-        </div>
-    </div>
-
     <script>
         let API_URL = 'https://api.gtrmun.com';
         let ws = null;
