@@ -733,8 +733,26 @@
                 }
             }
             
-            // Re-render to show updated values
-            renderStockTrades();
+            // Only update the changed value and summary, do not re-render trade row
+            if (field === 'stock') {
+                // Also update price input if stock selected
+                if (value && stockPrices[value]) {
+                    const priceInput = document.getElementById(`price-${trade.id}`);
+                    if (priceInput) priceInput.value = stockPrices[value];
+                }
+            } else if (field === 'shares' || field === 'price') {
+                // Update amount input if shares or price changed
+                const amountInput = document.getElementById(`amount-${trade.id}`);
+                if (amountInput) amountInput.value = trade.amount;
+            } else if (field === 'amount') {
+                // Update shares input if amount changed
+                const sharesInput = document.getElementById(`shares-${trade.id}`);
+                if (sharesInput) sharesInput.value = trade.shares;
+                // Update amount input to match whole shares
+                const amountInput = document.getElementById(`amount-${trade.id}`);
+                if (amountInput) amountInput.value = trade.amount;
+            }
+
             updateTradeSummary();
         }
         
@@ -767,18 +785,21 @@
                         <div class="form-group">
                             <label>Shares:</label>
                             <input type="number" min="1" value="${trade.shares || ''}" 
+                                   id="shares-${trade.id}"
                                    oninput="updateStockTrade('${trade.id}', 'shares', this.value)"
                                    placeholder="100">
                         </div>
                         <div class="form-group">
                             <label>Price per Share ($):</label>
                             <input type="number" step="0.01" value="${trade.price || ''}"
+                                   id="price-${trade.id}"
                                    oninput="updateStockTrade('${trade.id}', 'price', this.value)"
                                    placeholder="50.00">
                         </div>
                         <div class="form-group">
                             <label>Total Amount ($):</label>
                             <input type="number" step="0.01" value="${trade.amount || ''}"
+                                   id="amount-${trade.id}"
                                    oninput="updateStockTrade('${trade.id}', 'amount', this.value)"
                                    placeholder="5000.00">
                         </div>
